@@ -1,0 +1,13 @@
+Django
+djangorestframework
+django-cors-headers
+djangorestframework-simplejwt
+mysqlclient
+psycopg2-binary
+celery
+redis
+PyMuPDF
+scikit-learn
+drf-yasg
+django-filter
+python-dotenv
