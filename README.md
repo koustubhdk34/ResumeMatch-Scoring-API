@@ -2,7 +2,7 @@
 
 ---
 
-# Job Tracker Backend (Django REST API)
+# ResumeMatch Scoring API
 
 This is a backend project built using Django and Django REST Framework.  
 The goal of this project is to simulate a real job application system where users can upload resumes, apply for jobs, and receive a similarity score between their resume and the job description.
