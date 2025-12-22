@@ -4,36 +4,36 @@
 
 # ResumeMatch Scoring API
 
-This is a backend project built using Django and Django REST Framework.  
-The goal of this project is to simulate a real job application system where users can upload resumes, apply for jobs, and receive a similarity score between their resume and the job description.
+**ResumeMatch Scoring API** is a backend-focused project built with Django and Django REST Framework.  
+It simulates a real-world job application system where users can upload resumes, apply for jobs, and get a similarity score between their resume and job description.  
 
-This project is backend-focused. There is no frontend UI.
+This project focuses purely on backend functionality—there is no frontend UI.
 
 ---
 
 ## What this project does
 
-- User registration and login using JWT authentication
-- Resume upload (PDF)
-- Background resume parsing using Celery
-- Job creation and management (admin controlled)
-- Job application tracking
-- Resume vs Job Description similarity scoring
-- API documentation using Swagger
+- **User Authentication:** Registration and login using JWT (email-based login).  
+- **Resume Management:** Upload resumes in PDF format; background parsing with Celery. Extracted text is stored in MySQL.  
+- **Job Management:** Admin-controlled creation, update, and deletion of job postings.  
+- **Job Applications:** Users can apply to jobs; applications track status and similarity scores.  
+- **Resume–Job Matching:** Calculates similarity score using TF-IDF vectorization + Cosine similarity between resume text and job description.  
+- **Email Notifications:** Sends asynchronous email notifications to users after applying, showing job title, application status, and similarity score.  
+- **API Documentation:** Fully documented and testable using Swagger (drf-yasg).
 
 ---
 
 ## Tech stack used
 
-- Python
-- Django
-- Django REST Framework
-- JWT Authentication (SimpleJWT)
-- Celery for background tasks
-- Redis as message broker
-- SQLite (local development)
-- PostgreSQL (production)
-- Swagger (drf-yasg)
+- **Backend:** Python, Django, Django REST Framework  
+- **Authentication:** JWT (SimpleJWT)  
+- **Task Queue:** Celery with Redis as message broker  
+- **Database:** MySQL  
+- **PDF Parsing:** PyMuPDF  
+- **Machine Learning:** Scikit-learn (TF-IDF + Cosine Similarity)  
+- **API Docs:** Swagger (drf-yasg)  
+- **Environment Management:** python-dotenv
+
 
 ---
 
@@ -91,42 +91,43 @@ manage.py
 
 ## Authentication
 
-Authentication is handled using JWT.
+- **JWT Tokens** are used for all protected endpoints.  
+- After login, the client receives:  
+  - Access Token (short-lived)  
+  - Refresh Token (longer-lived)  
 
-After login, the client receives:
-- Access token
-- Refresh token
-
-All protected endpoints require the access token in the request header:
+**Header Example for Protected Endpoints:**
 
 ```
 Authorization: Bearer <access_token>
 ```
 ---
-## Resume upload and processing
-- User uploads a resume in PDF format
-- File is saved immediately
-- Resume text extraction runs in the background using Celery
-- Parsed text is stored in the database
-
-This asynchronous approach prevents blocking API requests.
+## Resume Upload and Processing
+- Users upload resumes in PDF format.  
+- Resume text is **extracted asynchronously** using Celery tasks and stored in MySQL.  
+- Parsing is non-blocking, ensuring API requests remain fast. This asynchronous approach prevents blocking API requests.
 ---
-## Job application flow
-1. User uploads a resume
-2. User applies for a job
-3. Resume text is compared with the job description
-4. A similarity score is calculated and stored
-5. Application status is saved
+## Job Application Flow
+1. User uploads a resume.  
+2. User applies to a job.  
+3. Resume text is compared with the job description.  
+4. **TF-IDF + Cosine Similarity** generates a similarity score (0.0–1.0).  
+5. Application status and similarity score are stored in MySQL.  
+6. An email notification is sent asynchronously to the user with:  
+   - Job title  
+   - Application status  
+   - Similarity score
+
 
 Similarity scores vary depending on the resume content and job description.
 ---
-## Background tasks (Celery)
+## Celery Background Tasks
 
-Celery is used for:
-- Resume parsing
-- Application-related background tasks
+- Resume parsing  
+- Sending application email notifications  
 
-Redis is used as the message broker.
+Redis is used as the Celery message broker.
+
 ---
 ## API documentation
 Swagger UI is available at:
@@ -138,7 +139,6 @@ Swagger supports:
 - File upload testing
 - API request and response inspection
 
-Swagger is used for API documentation and testing.
 ---
 ## Environment variables
 
@@ -147,33 +147,55 @@ All sensitive values are stored in environment variables and are not committed t
 DJANGO_SECRET_KEY
 DEBUG
 DJANGO_ALLOWED_HOSTS
+MYSQL_DATABASE
+MYSQL_USER
+MYSQL_PASSWORD
+MYSQL_HOST
 CELERY_BROKER_URL
 EMAIL_HOST
 EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD
+EMAIL_USE_TLS
 ```
 The `.env` file is excluded using `.gitignore`.
 ---
 ## Local setup
 ```
+# Clone repository
+git clone <repo-url>
+cd ResumeMatch-API
+
+# Create virtual environment
 python -m venv venv
-venv\Scripts\activate
+venv\Scripts\activate      # Windows
+source venv/bin/activate   # Linux/Mac
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Configure .env with MySQL and email credentials
+
+# Run migrations
 python manage.py migrate
+
+# Start Redis
+redis-server
+
+# Start Celery worker
+celery -A core worker -l info
+
+# Start Django server
 python manage.py runserver
 ```
-Start Redis:
-```
-redis-server
-```
-Start Celery worker:
-```
-celery -A core worker -l info
-```
----
-## Deployment
-- Environment variables are configured on the hosting platform (Render)
-- SQLite is replaced with PostgreSQL in production
-```
+## Key Skills Demonstrated
+
+* Django & Django REST Framework (ViewSets, Serializers, Filters, Pagination)
+* JWT-based authentication
+* Celery & Redis for asynchronous background processing
+* Resume parsing from PDF (PyMuPDF)
+* TF-IDF vectorization & Cosine similarity scoring (scikit-learn)
+* Relational DB design with MySQL
+* API documentation and testing with Swagger
+
 
  
