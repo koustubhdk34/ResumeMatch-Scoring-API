@@ -150,10 +150,15 @@ Swagger supports:
 ---
 ## Screenshots
 
-### Resume–Job Similarity Score (Swagger Response)
-![Similarity Score](Screenshots/Similarity_Score.png)
-### Swagger API Overview
-![Swagger API](Screenshots/Swagger.png)
+<p align="center">
+  <img src="Screenshots/Similarity_Score.png" width="48%" />
+  <img src="Screenshots/Swagger.png" width="48%" />
+</p>
+
+<p align="center">
+  <b>Left:</b> Resume–Job Similarity Score &nbsp;&nbsp;&nbsp;
+  <b>Right:</b> Swagger API Overview
+</p>
 
 ---
 ## Environment variables
@@ -184,7 +189,7 @@ cd ResumeMatch-API
 # Create virtual environment
 python -m venv venv
 venv\Scripts\activate      # Windows
-source venv/bin/activate   # Linux/Mac
+
 
 # Install dependencies
 pip install -r requirements.txt
