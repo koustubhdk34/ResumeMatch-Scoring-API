@@ -152,7 +152,6 @@ Swagger supports:
 
 ### Resume–Job Similarity Score (Swagger Response)
 ![Similarity Score](Screenshots/Similarity_Score.png)
-<br>
 ### Swagger API Overview
 ![Swagger API](Screenshots/Swagger.png)
 
