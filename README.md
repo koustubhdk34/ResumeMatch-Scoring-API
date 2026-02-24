@@ -10,6 +10,14 @@ It simulates a real-world job application system where users can upload resumes,
 This project focuses purely on backend functionality—there is no frontend UI.
 
 ---
+---
+
+## Demo
+
+- Full API demonstration video:  
+  https://drive.google.com/file/d/1eoSRTuswHbtlRLhkRefoL0aFZl25HQYU/view?usp=sharing
+
+---
 
 ## What this project does
 
@@ -138,6 +146,15 @@ Swagger supports:
 - JWT authorization
 - File upload testing
 - API request and response inspection
+
+---
+## Screenshots
+
+### Resume–Job Similarity Score (Swagger Response)
+![Similarity Score](Screenshots/Similarity_Score.png)
+
+### Swagger API Overview
+![Swagger API](Screenshots/Swagger.png)
 
 ---
 ## Environment variables
